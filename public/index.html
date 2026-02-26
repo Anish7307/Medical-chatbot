@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header glass-effect">
+        <div class="brand">
+            <div class="logo-circle">
+                <i class="fa-solid fa-stethoscope"></i>
+            </div>
+            <div class="brand-text">
+                <h1>MediBot AI</h1>
+                <span class="status-dot"></span>
+            </div>
+        </div>
+        
+        <div class="header-controls">
+            <button onclick="toggleTheme()" class="icon-btn" title="Toggle Theme">
+                <i class="fa-solid fa-moon" id="theme-icon"></i>
+            </button>
+            <button onclick="clearChat()" class="icon-btn" title="Clear History">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="chat-box" class="chat-box">
+        <div class="message bot welcome-message">
+            <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="message-content">
+                Hello! I'm your AI Medical Assistant. How can I help you feel better today?
+            </div>
+        </div>
+    </div>
+
+    <div class="input-area glass-effect">
+        <div class="input-wrapper">
+            <textarea 
+                id="user-input" 
+                placeholder="Type your symptoms or questions..." 
+                rows="1" 
+                onkeydown="handleEnter(event)"></textarea>
+            <button onclick="sendMessage()" id="send-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+        <div class="disclaimer">AI information is for reference only. Consult a doctor.</div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

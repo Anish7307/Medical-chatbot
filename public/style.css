@@ -1,0 +1,253 @@
+/* --- 1. Variables & Themes --- */
+:root {
+    /* Light Mode (Default) */
+    --bg-color: #f0f4f8;
+    --chat-bg: #ffffff;
+    --primary: #0ea5e9;       /* Medical Blue */
+    --primary-hover: #0284c7;
+    --secondary: #6366f1;     /* Interactive Purple */
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --bot-msg-bg: #f1f5f9;
+    --user-msg-bg: #0ea5e9;
+    --user-text: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --glass: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Overrides */
+    --bg-color: #0f172a;
+    --chat-bg: #1e293b;
+    --primary: #38bdf8;
+    --primary-hover: #7dd3fc;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --bot-msg-bg: #334155;
+    --user-msg-bg: #0284c7;
+    --glass: rgba(15, 23, 42, 0.8);
+}
+
+/* --- 2. Global Reset & Typography --- */
+* { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- 3. Header with Glassmorphism --- */
+.header {
+    height: 70px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+
+.logo-circle {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+}
+
+.brand-text h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.status-dot {
+    height: 8px; width: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+/* --- 4. Interactive Buttons --- */
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background-color: var(--bot-msg-bg);
+    color: var(--primary);
+    transform: translateY(-2px); /* Hover Lift Effect */
+}
+
+.icon-btn:active { transform: scale(0.95); } /* Click Press Effect */
+
+/* --- 5. Chat Area & Animations --- */
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 90px 20px 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    scroll-behavior: smooth;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Message Bubbles */
+.message {
+    display: flex;
+    gap: 15px;
+    opacity: 0; /* Hidden initially for animation */
+    animation: slideUp 0.4s ease forwards;
+    max-width: 80%;
+}
+
+.message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message.bot { align-self: flex-start; }
+
+/* Entry Animation */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar {
+    width: 35px; height: 35px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.bot .avatar { background: var(--bot-msg-bg); color: var(--primary); }
+.user .avatar { background: var(--user-msg-bg); color: white; }
+
+.message-content {
+    padding: 12px 18px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.bot .message-content {
+    background: var(--chat-bg);
+    border: 1px solid var(--border);
+    border-top-left-radius: 4px;
+}
+
+.user .message-content {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--user-text);
+    border-top-right-radius: 4px;
+}
+
+/* --- 6. Input Area --- */
+.input-area {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-wrapper {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.input-wrapper:focus-within {
+    transform: scale(1.01); /* Subtle zoom on focus */
+}
+
+textarea {
+    width: 100%;
+    background: var(--chat-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 16px 55px 16px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    box-shadow: var(--shadow);
+    transition: border-color 0.3s;
+    font-family: 'Inter', sans-serif;
+}
+
+textarea:focus { border-color: var(--primary); }
+
+#send-btn {
+    position: absolute;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#send-btn:hover {
+    background: var(--primary-hover);
+    transform: rotate(-10deg) scale(1.1);
+}
+
+.disclaimer {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
